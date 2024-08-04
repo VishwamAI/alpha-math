@@ -1,1 +1,6 @@
 venv/
+
+# Large files identified by the find command
+*.so
+*.so.*
+*.pack
