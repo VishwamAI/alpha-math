@@ -2,9 +2,9 @@ name: Python application workflow
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, feature/CI-CD-integration ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, feature/CI-CD-integration ]
 
 jobs:
   build:
