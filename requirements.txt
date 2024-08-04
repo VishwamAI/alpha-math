@@ -9,7 +9,6 @@ iniconfig
 Jinja2
 kiwisolver
 MarkupSafe
-mathematics-dataset
 matplotlib
 mpmath
 networkx
@@ -40,3 +39,4 @@ tomli
 torch
 triton
 typing_extensions
+-e ./mathematics_dataset_local
