@@ -1,4 +1,6 @@
 import sympy as sp
+from sympy import diff, integrate, limit, series, Matrix, Rational, prime, factoris
+from sympy.stats import Normal, Binomial, Poisson, Uniform, Exponential
 
 def solve_equation(equation):
     try:
@@ -272,3 +274,71 @@ class ReinforcementLearningAgent:
         self.optimizer = optim.Adam(self.model.parameters(), lr=0.001)
 
         print(f"Knowledge base updated with {len(new_data)} new concepts.")
+
+def calculate_derivative(expression, variable):
+    """
+    Calculate the derivative of an expression with respect to a variable.
+
+    :param expression: string representing the mathematical expression
+    :param variable: string representing the variable to differentiate with respect to
+    :return: string representing the derivative
+    """
+    try:
+        x = sp.Symbol(variable)
+        expr = sp.sympify(expression)
+        derivative = sp.diff(expr, x)
+        return str(derivative)
+    except Exception as e:
+        return f"Error calculating derivative: {str(e)}"
+
+def calculate_integral(expression, variable, lower_bound=None, upper_bound=None):
+    """
+    Calculate the integral of an expression with respect to a variable.
+
+    :param expression: string representing the mathematical expression
+    :param variable: string representing the variable to integrate with respect to
+    :param lower_bound: lower bound for definite integral (optional)
+    :param upper_bound: upper bound for definite integral (optional)
+    :return: string representing the integral or definite integral result
+    """
+    try:
+        x = sp.Symbol(variable)
+        expr = sp.sympify(expression)
+        if lower_bound is None or upper_bound is None:
+            integral = sp.integrate(expr, x)
+            return str(integral)
+        else:
+            definite_integral = sp.integrate(expr, (x, lower_bound, upper_bound))
+            return str(definite_integral)
+    except Exception as e:
+        return f"Error calculating integral: {str(e)}"
+
+def is_prime(n):
+    """
+    Check if a number is prime.
+
+    :param n: integer to check for primality
+    :return: boolean indicating whether the number is prime
+    """
+    if n < 2:
+        return False
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+def calculate_probability(event_outcomes, total_outcomes):
+    """
+    Calculate the probability of an event.
+
+    :param event_outcomes: number of favorable outcomes
+    :param total_outcomes: total number of possible outcomes
+    :return: float representing the probability
+    """
+    try:
+        probability = event_outcomes / total_outcomes
+        return probability
+    except ZeroDivisionError:
+        return "Error: Total outcomes cannot be zero"
+    except Exception as e:
+        return f"Error calculating probability: {str(e)}"
