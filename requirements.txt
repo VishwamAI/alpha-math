@@ -39,4 +39,4 @@ tomli
 torch
 triton
 typing_extensions
-git+https://github.com/VishwamAI/mathematics_dataset.git
+git+https://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@github.com/VishwamAI/mathematics_dataset.git
