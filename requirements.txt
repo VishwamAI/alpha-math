@@ -34,9 +34,10 @@ pytest
 python-dateutil
 scipy
 six
-sympy==1.10.1
+sympy==1.13.1
 tomli
 torch
 triton
 typing_extensions
-git+https://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@github.com/VishwamAI/mathematics_dataset.git
+tensorflow
+git+https://${GITHUB_TOKEN}@github.com/VishwamAI/mathematics_dataset.git@feature/CI-CD-integration
