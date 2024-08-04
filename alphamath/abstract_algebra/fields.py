@@ -1,5 +1,6 @@
 from typing import Set, Callable, Any
 from .rings import Ring
+from fractions import Fraction
 
 class Field(Ring):
     def __init__(self, elements: Set[Any], addition: Callable[[Any, Any], Any], multiplication: Callable[[Any, Any], Any], zero: Any, one: Any):
@@ -20,7 +21,6 @@ class Field(Ring):
         return next(x for x in self.elements if self.multiplication(b, x) == a)
 
 def create_rational_field() -> Field:
-    from fractions import Fraction
     elements = set(Fraction(n, d) for n in range(-10, 11) for d in range(1, 11))
     addition = lambda x, y: x + y
     multiplication = lambda x, y: x * y
