@@ -39,4 +39,4 @@ tomli
 torch
 triton
 typing_extensions
--e ./mathematics_dataset_local
+-e /home/ubuntu/alpha-math/mathematics_dataset_local
