@@ -196,3 +196,79 @@ if __name__ == "__main__":
     composite_function = 'f(w(a))'
     result = evaluate_function(composite_function, functions, 'a')
     print(f"Evaluation of {composite_function}: {result}")
+
+import torch
+import torch.nn as nn
+import torch.optim as optim
+import numpy as np
+
+class ReinforcementLearningAgent:
+    def __init__(self, state_size, action_size):
+        self.state_size = state_size
+        self.action_size = action_size
+        self.model = nn.Sequential(
+            nn.Linear(state_size, 64),
+            nn.ReLU(),
+            nn.Linear(64, 64),
+            nn.ReLU(),
+            nn.Linear(64, action_size)
+        )
+        self.optimizer = optim.Adam(self.model.parameters(), lr=0.001)
+        self.loss_fn = nn.MSELoss()
+
+    def train(self, state, action, reward, next_state, done):
+        state = torch.FloatTensor(state)
+        next_state = torch.FloatTensor(next_state)
+        action = torch.LongTensor([action])
+        reward = torch.FloatTensor([reward])
+        done = torch.FloatTensor([done])
+
+        q_values = self.model(state)
+        next_q_values = self.model(next_state)
+
+        q_value = q_values.gather(1, action.unsqueeze(1)).squeeze(1)
+        next_q_value = next_q_values.max(1)[0]
+        expected_q_value = reward + 0.99 * next_q_value * (1 - done)
+
+        loss = self.loss_fn(q_value, expected_q_value.detach())
+
+        self.optimizer.zero_grad()
+        loss.backward()
+        self.optimizer.step()
+
+    def predict(self, state):
+        state = torch.FloatTensor(state)
+        q_values = self.model(state)
+        return q_values.argmax().item()
+
+    def update_knowledge_base(self, new_data):
+        """
+        Update the agent's knowledge base with new mathematical concepts or problem-solving strategies.
+
+        :param new_data: A dictionary containing new mathematical concepts or problem-solving strategies.
+                         The keys should be the concept names, and the values should be the corresponding
+                         representations (e.g., equations, rules, or procedures).
+        """
+        for concept, representation in new_data.items():
+            # Convert the representation to a tensor
+            if isinstance(representation, (list, np.ndarray)):
+                tensor_repr = torch.FloatTensor(representation)
+            elif isinstance(representation, str):
+                # For string representations, we'll use a simple encoding
+                tensor_repr = torch.FloatTensor([ord(c) for c in representation])
+            else:
+                raise ValueError(f"Unsupported representation type for concept: {concept}")
+
+            # Add a new output node to the model for this concept
+            new_output_layer = nn.Linear(64, self.action_size + 1)
+            new_output_layer.weight.data = torch.cat([self.model[-1].weight.data, tensor_repr.unsqueeze(0)], dim=0)
+            new_output_layer.bias.data = torch.cat([self.model[-1].bias.data, torch.zeros(1)])
+
+            # Replace the old output layer with the new one
+            self.model[-1] = new_output_layer
+            self.action_size += 1
+
+        # Update the optimizer to include the parameters of the new layer
+        self.optimizer = optim.Adam(self.model.parameters(), lr=0.001)
+
+        print(f"Knowledge base updated with {len(new_data)} new concepts.")
