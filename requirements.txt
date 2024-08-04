@@ -39,4 +39,4 @@ tomli
 torch
 triton
 typing_extensions
-./mathematics_dataset_local
+-e ./mathematics_dataset_local
