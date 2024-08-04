@@ -26,10 +26,15 @@ jobs:
         git config --global credential.helper store
         echo "https://${GITHUB_TOKEN}@github.com" > ~/.git-credentials
     - name: Install dependencies
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         python -m pip install --upgrade pip
         pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - name: Install alphamath package
+      run: |
+        pip install -e .
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
