@@ -108,3 +108,42 @@ def test_probability():
 
 if __name__ == "__main__":
     pytest.main([__file__])
+
+from alphamath.topology.topology import TopologicalSpace, basis_of_topology, subspace_topology
+
+class TestTopology:
+    def setup_method(self):
+        self.space = TopologicalSpace({1, 2, 3, 4})
+        self.space.add_open_set({1, 2})
+        self.space.add_open_set({2, 3})
+
+    def test_topological_space_creation(self):
+        assert self.space.universe == {1, 2, 3, 4}
+        assert len(self.space.open_sets) == 4  # Empty set, universe, and two added sets
+
+    def test_is_open(self):
+        assert self.space.is_open({1, 2})
+        assert not self.space.is_open({1, 3})
+
+    def test_is_closed(self):
+        assert self.space.is_closed({3, 4})
+        assert not self.space.is_closed({1, 2, 3})
+
+    def test_check_continuity(self):
+        def f(x):
+            return x + 1 if x < 4 else 1
+
+        codomain = TopologicalSpace({1, 2, 3, 4, 5})
+        codomain.add_open_set({2, 3})
+        codomain.add_open_set({4, 5})
+
+        assert self.space.check_continuity(f, self.space, codomain)
+
+    def test_basis_of_topology(self):
+        basis = basis_of_topology(self.space)
+        assert {frozenset({1, 2}), frozenset({2, 3})} == basis
+
+    def test_subspace_topology(self):
+        subspace = subspace_topology(self.space, {1, 2, 3})
+        assert subspace.universe == {1, 2, 3}
+        assert len(subspace.open_sets) == 4  # Empty set, universe, {1, 2}, and {2, 3}

@@ -1,6 +1,22 @@
 import sympy as sp
 from sympy import diff, integrate, limit, series, Matrix, Rational, prime, factoris
 from sympy.stats import Normal, Binomial, Poisson, Uniform, Exponential
+from alphamath.algebra import algebra
+from alphamath.arithmetic import arithmetic
+from alphamath.calculus import calculus
+from alphamath.comparison import comparison
+from alphamath.measurement import measurement
+from alphamath.numbers import numbers
+from alphamath.polynomials import polynomials
+from alphamath.probability import probability
+from alphamath.geometry import geometry
+from alphamath.topology import topology
+from alphamath.differential_equations import differential_equations
+from alphamath.trigonometry import trigonometry
+from alphamath.analysis import analysis
+from alphamath.combinatorics import combinatorics
+from alphamath.number_theory import number_theory
+from alphamath.linear_algebra import linear_algebra
 
 def solve_equation(equation):
     try:
@@ -342,3 +358,106 @@ def calculate_probability(event_outcomes, total_outcomes):
         return "Error: Total outcomes cannot be zero"
     except Exception as e:
         return f"Error calculating probability: {str(e)}"
+
+# Import statements for new mathematical modules
+from alphamath.algebra import algebra
+from alphamath.geometry import geometry
+from alphamath.topology import topology
+from alphamath.differential_equations import differential_equations
+from alphamath.trigonometry import trigonometry
+from alphamath.analysis import analysis
+from alphamath.combinatorics import combinatorics
+from alphamath.number_theory import number_theory
+from alphamath.linear_algebra import linear_algebra
+
+# Integration functions for new mathematical modules
+
+def solve_algebraic_equation(equation):
+    """
+    Solve an algebraic equation using the algebra module.
+
+    :param equation: string representing the equation to solve
+    :return: solution to the equation
+    """
+    return algebra.solve_equation(equation)
+
+def calculate_geometric_area(shape, *args):
+    """
+    Calculate the area of a geometric shape using the geometry module.
+
+    :param shape: string representing the shape (e.g., 'circle', 'rectangle', 'triangle')
+    :param args: dimensions of the shape
+    :return: float representing the calculated area
+    """
+    return geometry.calculate_area(shape, *args)
+
+def create_topological_space(universe):
+    """
+    Create a topological space using the topology module.
+
+    :param universe: set representing the universe of the topological space
+    :return: TopologicalSpace object
+    """
+    return topology.TopologicalSpace(universe)
+
+def solve_differential_equation(equation, function, variable, ics=None):
+    """
+    Solve a differential equation using the differential_equations module.
+
+    :param equation: The ODE to solve (SymPy expression)
+    :param function: The function to solve for (SymPy function)
+    :param variable: The independent variable (SymPy symbol)
+    :param ics: Initial conditions as a dictionary {x: value, y: value, ...}
+    :return: The solution of the ODE
+    """
+    return differential_equations.solve_ode(equation, function, variable, ics)
+
+def solve_trig_equation(equation, variable):
+    """
+    Solve a trigonometric equation using the trigonometry module.
+
+    :param equation: The trigonometric equation to solve (SymPy expression)
+    :param variable: The variable to solve for (SymPy symbol)
+    :return: A list of solutions to the equation
+    """
+    return trigonometry.solve_trig_equation(equation, variable)
+
+def calculate_limit(expression, variable, point):
+    """
+    Calculate the limit of an expression using the analysis module.
+
+    :param expression: The mathematical expression (SymPy expression)
+    :param variable: The variable of the limit (SymPy symbol)
+    :param point: The point the variable approaches (number or SymPy expression)
+    :return: The limit of the expression
+    """
+    return analysis.calculate_limit(expression, variable, point)
+
+def calculate_permutations(n, r):
+    """
+    Calculate the number of permutations using the combinatorics module.
+
+    :param n: Total number of items
+    :param r: Number of items being arranged
+    :return: Number of permutations
+    """
+    return combinatorics.calculate_permutations(n, r)
+
+def is_prime_number(n):
+    """
+    Check if a number is prime using the number_theory module.
+
+    :param n: An integer to check for primality
+    :return: Boolean indicating whether the number is prime
+    """
+    return number_theory.is_prime(n)
+
+def matrix_multiply(matrix1, matrix2):
+    """
+    Multiply two matrices using the linear_algebra module.
+
+    :param matrix1: First matrix (2D NumPy array)
+    :param matrix2: Second matrix (2D NumPy array)
+    :return: Result of matrix multiplication (2D NumPy array)
+    """
+    return linear_algebra.matrix_multiply(matrix1, matrix2)
