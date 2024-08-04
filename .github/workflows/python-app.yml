@@ -32,7 +32,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-        pip install git+https://x-access-token:${GITHUB_TOKEN}@github.com/VishwamAI/mathematics_dataset.git@feature/CI-CD-integration
+        pip install git+https://${GITHUB_TOKEN}@github.com/VishwamAI/mathematics_dataset.git@feature/CI-CD-integration
     - name: Install alphamath package
       run: |
         pip install -e .
