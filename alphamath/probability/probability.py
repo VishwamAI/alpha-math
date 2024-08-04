@@ -15,9 +15,6 @@ from itertools import combinations
 
 import numpy as np
 
-from alphamath.util import combinatorics
-from alphamath.util import probability
-
 # Constants for probability calculations
 LETTERS = string.ascii_lowercase
 MAX_DISTINCT_LETTERS = 6
@@ -116,7 +113,11 @@ def level_set_event(values: List[Any], length: int) -> Tuple[Dict[Any, int], str
         - A dictionary representing the level set event
         - A text description of the event
     """
-    counts = combinatorics.uniform_non_negative_integers_with_sum(len(values), length)
+    def uniform_non_negative_integers_with_sum(n, total):
+        partitions = [0] + sorted(random.sample(range(1, total + n), n - 1)) + [total]
+        return [partitions[i+1] - partitions[i] for i in range(n)]
+
+    counts = uniform_non_negative_integers_with_sum(len(values), length)
     counts_dict = dict(zip(values, counts))
 
     shuffled_values = random.sample(values, len(values))
@@ -148,8 +149,8 @@ def sample_letter_bag(min_total: int, max_distinct: int = 6, max_total: int = 20
     num_letters_total = random.randint(
         max(num_distinct_letters, min_total),
         min(max_total, num_distinct_letters * 3))
-    letter_counts = combinatorics.uniform_positive_integers_with_sum(
-        num_distinct_letters, num_letters_total)
+    letter_counts = [random.randint(1, num_letters_total - num_distinct_letters + 1) for _ in range(num_distinct_letters)]
+    letter_counts[-1] = num_letters_total - sum(letter_counts[:-1])
 
     letters_distinct = random.sample(string.ascii_lowercase, num_distinct_letters)
     weights = {i: 1 for i in range(num_letters_total)}
@@ -157,8 +158,7 @@ def sample_letter_bag(min_total: int, max_distinct: int = 6, max_total: int = 20
     letters_with_repetition = [letter for letter, count in zip(letters_distinct, letter_counts) for _ in range(count)]
     random.shuffle(letters_with_repetition)
 
-    random_variable = probability.DiscreteRandomVariable(
-        {i: letter for i, letter in enumerate(letters_with_repetition)})
+    random_variable = {i: letter for i, letter in enumerate(letters_with_repetition)}
 
     bag_contents = (''.join(letters_with_repetition) if random.choice([False, True])
                     else '{' + ', '.join(f'{letter}: {count}' for letter, count in zip(letters_distinct, letter_counts)) + '}')
