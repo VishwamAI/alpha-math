@@ -1,6 +1,26 @@
+# Standard library imports
+import math
+import random
+
+# Third-party library imports
+import numpy as np
+import scipy.stats as stats
+import scipy.optimize as optimize
 import sympy as sp
-from sympy import diff, integrate, limit, series, Matrix, Rational, prime, factoris
+from sympy import diff, integrate, limit, series, Matrix, Rational, prime, factorint
 from sympy.stats import Normal, Binomial, Poisson, Uniform, Exponential
+
+# Local application/library-specific imports
+from alphamath.statistics import central_tendency, dispersion
+from alphamath.probability import probability
+from alphamath.operations_research import linear_programming, integer_programming
+from alphamath.numerical_analysis import equations, integration, differentiation
+from alphamath.discrete_mathematics import set_theory, graph_theory, combinatorics
+from alphamath.game_theory import nash_equilibrium, minimax
+from alphamath.abstract_algebra import groups, rings, fields
+from alphamath.information_theory import entropy, coding_theory
+from alphamath.logic import propositional_logic, predicate_logic
+from alphamath.numerical_systems import number_bases, conversions
 
 def solve_equation(equation):
     try:
@@ -342,3 +362,231 @@ def calculate_probability(event_outcomes, total_outcomes):
         return "Error: Total outcomes cannot be zero"
     except Exception as e:
         return f"Error calculating probability: {str(e)}"
+
+# Import statements for new modules
+from .statistics import central_tendency, dispersion
+from .probability import probability
+from .operations_research import linear_programming, integer_programming
+from .numerical_analysis import equations, integration, differentiation
+from .discrete_mathematics import set_theory, graph_theory, combinatorics, logic, number_theory
+from .game_theory import nash_equilibrium, minimax, evolutionary_game_theory
+from .abstract_algebra import groups, rings, fields, modules
+from .information_theory import entropy, coding_theory, information_gain
+from .logic import propositional_logic, predicate_logic, logical_operations
+from .numerical_systems import number_bases, conversions
+
+# Wrapper functions for new modules
+
+def statistical_measures(data, measure_type):
+    """
+    Calculate statistical measures for a given dataset.
+
+    :param data: List of numerical values
+    :param measure_type: String indicating the type of measure ('mean', 'median', 'mode', 'variance', 'std_dev')
+    :return: Calculated statistical measure
+    """
+    if measure_type in ['mean', 'median', 'mode']:
+        return getattr(central_tendency, measure_type)(data)
+    elif measure_type in ['variance', 'std_dev']:
+        return getattr(dispersion, measure_type)(data)
+    else:
+        raise ValueError(f"Unknown measure type: {measure_type}")
+
+def solve_linear_program(A, b, c):
+    """
+    Solve a linear programming problem.
+
+    :param A: Matrix of coefficients for constraints
+    :param b: Vector of right-hand side values for constraints
+    :param c: Vector of coefficients of the objective function
+    :return: Optimal solution and optimal value
+    """
+    return linear_programming.simplex_method(A, b, c)
+
+def solve_integer_program(A, b, c):
+    """
+    Solve an integer programming problem.
+
+    :param A: Matrix of coefficients for constraints
+    :param b: Vector of right-hand side values for constraints
+    :param c: Vector of coefficients of the objective function
+    :return: Optimal integer solution and optimal value
+    """
+    return integer_programming.branch_and_bound(A, b, c)
+
+def solve_equation_numerically(function, a, b, method='bisection'):
+    """
+    Solve an equation numerically using various methods.
+
+    :param function: The function to find the root of
+    :param a: Left endpoint of the interval (for bisection method)
+    :param b: Right endpoint of the interval (for bisection method)
+    :param method: String indicating the method to use ('bisection', 'newton', 'secant')
+    :return: Approximate root of the function
+    """
+    if method == 'bisection':
+        return equations.bisection_method(function, a, b)
+    elif method == 'newton':
+        return equations.newtons_method(function, lambda x: sp.diff(function(sp.Symbol('x'))), (a + b) / 2)
+    elif method == 'secant':
+        return equations.secant_method(function, a, b)
+    else:
+        raise ValueError(f"Unknown method: {method}")
+
+def numerical_integration(function, a, b, method='trapezoidal', n=100):
+    """
+    Perform numerical integration using various methods.
+
+    :param function: The function to integrate
+    :param a: Lower bound of the interval
+    :param b: Upper bound of the interval
+    :param method: String indicating the method to use ('trapezoidal', 'simpson', 'gaussian')
+    :param n: Number of subintervals or points (depending on the method)
+    :return: Approximation of the integral
+    """
+    if method == 'trapezoidal':
+        return integration.trapezoidal_rule(function, a, b, n)
+    elif method == 'simpson':
+        return integration.simpsons_rule(function, a, b, n)
+    elif method == 'gaussian':
+        return integration.gaussian_quadrature(function, a, b, n)
+    else:
+        raise ValueError(f"Unknown method: {method}")
+
+def numerical_differentiation(function, x, method='central', h=1e-5):
+    """
+    Perform numerical differentiation using various methods.
+
+    :param function: The function to differentiate
+    :param x: The point at which to approximate the derivative
+    :param method: String indicating the method to use ('forward', 'backward', 'central')
+    :param h: The step size
+    :return: Approximation of the derivative
+    """
+    if method == 'forward':
+        return differentiation.forward_difference(function, x, h)
+    elif method == 'backward':
+        return differentiation.backward_difference(function, x, h)
+    elif method == 'central':
+        return differentiation.central_difference(function, x, h)
+    else:
+        raise ValueError(f"Unknown method: {method}")
+
+def set_operations(set1, set2, operation):
+    """
+    Perform set operations.
+
+    :param set1: First set
+    :param set2: Second set
+    :param operation: String indicating the operation ('union', 'intersection', 'difference', 'symmetric_difference')
+    :return: Result of the set operation
+    """
+    return getattr(set_theory, operation)(set1, set2)
+
+def graph_analysis(graph, analysis_type):
+    """
+    Perform graph analysis.
+
+    :param graph: Graph object
+    :param analysis_type: String indicating the type of analysis ('is_connected', 'shortest_path', 'minimum_spanning_tree')
+    :return: Result of the graph analysis
+    """
+    return getattr(graph, analysis_type)()
+
+def combinatorial_calculation(n, k, calc_type):
+    """
+    Perform combinatorial calculations.
+
+    :param n: Total number of items
+    :param k: Number of items being chosen or arranged
+    :param calc_type: String indicating the type of calculation ('permutations', 'combinations')
+    :return: Number of permutations or combinations
+    """
+    return getattr(combinatorics, f"calculate_{calc_type}")(n, k)
+
+def logical_operation(p, q, operation):
+    """
+    Perform logical operations.
+
+    :param p: First proposition
+    :param q: Second proposition
+    :param operation: String indicating the operation ('and', 'or', 'not', 'implies', 'iff')
+    :return: Result of the logical operation
+    """
+    return getattr(logical_operations, f"logical_{operation}")(p, q)
+
+def number_theory_function(n, function_type):
+    """
+    Perform number theory functions.
+
+    :param n: Input number
+    :param function_type: String indicating the function type ('is_prime', 'prime_factorization', 'euler_totient')
+    :return: Result of the number theory function
+    """
+    return getattr(number_theory, function_type)(n)
+
+def game_theory_analysis(payoff_matrix, analysis_type):
+    """
+    Perform game theory analysis.
+
+    :param payoff_matrix: Payoff matrix for the game
+    :param analysis_type: String indicating the type of analysis ('nash_equilibrium', 'minimax')
+    :return: Result of the game theory analysis
+    """
+    if analysis_type == 'nash_equilibrium':
+        return nash_equilibrium.find_nash_equilibrium(payoff_matrix)
+    elif analysis_type == 'minimax':
+        return minimax.minimax(payoff_matrix)
+    else:
+        raise ValueError(f"Unknown analysis type: {analysis_type}")
+
+def abstract_algebra_operation(structure, operation_type):
+    """
+    Perform abstract algebra operations.
+
+    :param structure: Algebraic structure (group, ring, field, or module)
+    :param operation_type: String indicating the type of operation ('is_abelian', 'is_ring', 'is_field', 'is_module')
+    :return: Result of the abstract algebra operation
+    """
+    return getattr(structure, f"is_{operation_type}")()
+
+def information_theory_calculation(data, calc_type):
+    """
+    Perform information theory calculations.
+
+    :param data: Input data (probabilities, messages, etc.)
+    :param calc_type: String indicating the type of calculation ('entropy', 'mutual_information')
+    :return: Result of the information theory calculation
+    """
+    if calc_type == 'entropy':
+        return entropy.entropy(data)
+    elif calc_type == 'mutual_information':
+        return information_gain.mutual_information(*data)
+    else:
+        raise ValueError(f"Unknown calculation type: {calc_type}")
+
+def convert_number_base(number, from_base, to_base):
+    """
+    Convert a number from one base to another.
+
+    :param number: Number to convert (as a string)
+    :param from_base: Base of the input number (2, 10, or 16)
+    :param to_base: Base to convert to (2, 10, or 16)
+    :return: Converted number (as a string)
+    """
+    if from_base == 10:
+        if to_base == 2:
+            return conversions.decimal_to_binary(number_bases.Decimal(number))
+        elif to_base == 16:
+            return conversions.decimal_to_hexadecimal(number_bases.Decimal(number))
+    elif from_base == 2:
+        if to_base == 10:
+            return conversions.binary_to_decimal(number_bases.Binary(number))
+        elif to_base == 16:
+            return conversions.binary_to_hexadecimal(number_bases.Binary(number))
+    elif from_base == 16:
+        if to_base == 2:
+            return conversions.hexadecimal_to_binary(number_bases.Hexadecimal(number))
+        elif to_base == 10:
+            return conversions.hexadecimal_to_decimal(number_bases.Hexadecimal(number))
+    raise ValueError(f"Unsupported conversion: from base {from_base} to base {to_base}")
