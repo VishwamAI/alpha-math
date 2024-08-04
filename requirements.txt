@@ -40,4 +40,4 @@ torch
 triton
 typing_extensions
 tensorflow
-git+https://${GITHUB_TOKEN_GITHUB_TOKEN}@github.com/VishwamAI/mathematics_dataset.git@feature/CI-CD-integration
+git+https://github.com/VishwamAI/mathematics_dataset.git@feature/CI-CD-integration
