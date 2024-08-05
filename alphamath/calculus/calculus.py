@@ -16,7 +16,7 @@ from mathematics_dataset.util import display
 import numpy as np
 from six.moves import range
 import sympy
-
+from sympy.solvers.diophantine import diophantine
 
 _ENTROPY_TRAIN = (3, 10)
 _ENTROPY_INTERPOLATE = (8, 8)
