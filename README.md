@@ -30,30 +30,6 @@ Question: Three letters picked without replacement from qqqkkklkqkkk. Give prob 
 Answer: 1/110
 ```
 
-## Pre-generated data
-
-[Pre-generated files](https://console.cloud.google.com/storage/browser/mathematics-dataset)
-
-### Version 1.0
-
-This is the version released with the original paper. It contains 2 million
-(question, answer) pairs per module, with questions limited to 160 characters in
-length, and answers to 30 characters in length. Note the training data for each
-question type is split into "train-easy", "train-medium", and "train-hard". This
-allows training models via a curriculum. The data can also be mixed together
-uniformly from these training datasets to obtain the results reported in the
-paper. Categories:
-
-* **algebra** (linear equations, polynomial roots, sequences)
-* **arithmetic** (pairwise operations and mixed expressions, surds)
-* **calculus** (differentiation)
-* **comparison** (closest numbers, pairwise comparisons, sorting)
-* **measurement** (conversion, working with time)
-* **numbers** (base conversion, remainders, common divisors and multiples,
-  primality, place value, rounding numbers)
-* **polynomials** (addition, simplification, composition, evaluating, expansion)
-* **probability** (sampling without replacement)
-
 ## Getting the source
 
 ### PyPI
@@ -61,7 +37,7 @@ paper. Categories:
 The easiest way to get the source is to use pip:
 
 ```shell
-$ pip install mathematics_dataset
+$ pip install alpha-math
 ```
 
 ### From GitHub
@@ -104,13 +80,6 @@ engines such as <a href="https://g.co/datasetsearch">Google Dataset Search</a>.
     <td><code itemprop="name">Mathematics Dataset</code></td>
   </tr>
   <tr>
-    <td>url</td>
-    <td><code itemprop="url">https://github.com/deepmind/mathematics_dataset</code></td>
-  </tr>
-  <tr>
-    <td>sameAs</td>
-    <td><code itemprop="sameAs">https://github.com/deepmind/mathematics_dataset</code></td>
-  </tr>
   <tr>
     <td>description</td>
     <td><code itemprop="description">This dataset consists of mathematical question and answer pairs, from a range
