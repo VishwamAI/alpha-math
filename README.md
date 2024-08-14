@@ -144,3 +144,39 @@ paper. Categories:\n
   </tr>
 </table>
 </div>
+
+## Real-World Problem Solving
+
+The `real_world_problems` module extends the capabilities of alpha-math to tackle real-world challenges. This module currently includes a mental health analysis component, demonstrating the application of data analysis and visualization techniques to a practical domain.
+
+### Mental Health Dataset
+
+The mental health dataset used in this module contains information about individuals' mental health statuses and their corresponding statements. This dataset allows us to explore the relationship between linguistic features and mental health conditions.
+
+### Functions in mental_health_analysis.py
+
+1. `load_dataset(filename='Combined Data.csv')`: Loads the mental health dataset from a CSV file.
+2. `perform_eda(data)`: Conducts exploratory data analysis on the dataset, including basic information, descriptive statistics, and visualizations of mental health status distributions.
+3. `analyze_sentiment_length(data)`: Analyzes the relationship between statement length and mental health status, providing insights into how the length of expressions might correlate with different mental health conditions.
+
+### Running the Script
+
+To run the mental health analysis script, use the following command:
+
+```shell
+python -m alphamath.real_world_problems.mental_health_analysis
+```
+
+### Interpreting the Results
+
+The script generates two main outputs:
+
+1. Exploratory Data Analysis (EDA) results: Stored in the `eda_results` dictionary, providing an overview of the dataset's characteristics.
+2. Sentiment Length Analysis results: Stored in the `sentiment_length_results` dictionary, offering insights into the relationship between statement length and mental health status.
+
+Additionally, two visualizations are generated:
+
+1. `mental_health_distribution.png`: A bar chart showing the distribution of mental health statuses in the dataset.
+2. `statement_length_by_status.png`: A bar chart displaying the average statement length for each mental health status.
+
+These results and visualizations can be used to gain insights into the dataset and potentially inform further analysis or machine learning tasks related to mental health assessment based on textual data.
