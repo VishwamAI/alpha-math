@@ -21,6 +21,12 @@ setup(
         "six>=1.16.0",  # Required by mathematics-dataset
         "absl-py>=0.1.0",  # Required by mathematics-dataset
     ],
+    extras_require={
+        'dev': [
+            'pytest>=7.0.0',
+            'pytest-cov>=4.0.0',
+        ],
+    },
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
