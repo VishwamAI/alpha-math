@@ -31,11 +31,8 @@ def calculate_series_expansion(expression, variable='x', point=0, order=3):
     expression = expression.replace('^', '**')
     expr = sympy.sympify(expression)
     series = expr.series(x, point, order + 2)
-    # Convert to string and handle term ordering
-    terms = str(series.removeO()).split(' + ')
-    if len(terms) > 1:
-        # Ensure x term comes first
-        terms.sort(key=lambda t: 0 if t == 'x' else 1)
-    result = ' + '.join(terms)
-    result = result.replace('**', '^')
-    return f"{result} + O(x^{order+2})"
+    # Convert to string and normalize the format
+    result = str(series).replace('**', '^')
+    # Fix the sign in the middle term
+    result = result.replace('+ -', '- ')
+    return result
