@@ -15,21 +15,27 @@ def solve_quadratic_equation(equation, variable='x'):
     try:
         expr = sympy.sympify(equation)
     except:
-        # If direct sympify fails, try parsing as polynomial
-        coeffs = []
+        # Parse the equation term by term
         terms = equation.split(' ')
+        coeffs = [0, 0, 0]  # [x^2, x, constant]
+
         for i, term in enumerate(terms):
-            if '**2' in term or '2' in term:
-                coeffs.append(1 if term.startswith('x') else int(term.split('x')[0]))
-            elif 'x' in term:
-                coeffs.append(1 if term == 'x' else int(term.split('x')[0]))
+            if '**2' in term or '^2' in term:
+                # Quadratic term
+                coeff = term.split('x')[0]
+                coeffs[0] = 1 if coeff == '' else int(coeff)
+            elif 'x' in term and '**2' not in term and '^2' not in term:
+                # Linear term
+                coeff = term.split('x')[0]
+                coeffs[1] = 1 if coeff == '' else int(coeff)
+            elif term.strip('-').isdigit():
+                # Constant term
+                coeffs[2] = int(term)
             elif term in ['+', '-']:
-                if i < len(terms) - 1 and terms[i+1].startswith('x'):
-                    coeffs.append(1 if term == '+' else -1)
-            else:
-                try:
-                    coeffs.append(int(term))
-                except:
-                    pass
+                continue
+
         expr = coeffs[0] * x**2 + coeffs[1] * x + coeffs[2]
-    return [str(sol) for sol in sympy.solve(expr, x)]
+
+    solutions = sympy.solve(expr, x)
+    # Convert solutions to integers if they're whole numbers
+    return [str(int(sol)) if float(sol).is_integer() else str(sol) for sol in solutions]
