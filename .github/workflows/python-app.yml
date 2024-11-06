@@ -24,17 +24,12 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          # Install base dependencies first
-          pip install -r requirements.txt
-          # Install development dependencies
-          pip install -r requirements-dev.txt
-          # Force install specific versions of sympy and mathematics_dataset
-          pip install --no-deps sympy==1.6.2
-          pip install --no-deps mathematics_dataset==1.0
-          # Install package in development mode
-          pip install -e .
+          # Install package in development mode with all dependencies
+          pip install -e ".[dev]"
           # Verify sympy version
           python -c "import sympy; print(f'Installed sympy version: {sympy.__version__}')"
+          # Verify our compatibility layer is available
+          python -c "from alphamath.compat import base_solution_linear; print('Compatibility layer available')"
 
       - name: Run tests
         run: |
