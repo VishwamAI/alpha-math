@@ -30,7 +30,6 @@ Pillow
 pluggy
 pyglet
 pyparsing
-pytest
 python-dateutil
 scipy
 six
@@ -39,5 +38,3 @@ torch
 triton
 typing_extensions
 tensorflow
-sympy==1.6.2
-mathematics_dataset==1.0
