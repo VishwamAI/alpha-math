@@ -30,6 +30,12 @@ jobs:
           python -c "import sympy; print(f'Installed sympy version: {sympy.__version__}')"
           # Verify our compatibility layer is available
           python -c "from alphamath.compat import base_solution_linear; print('Compatibility layer available')"
+          # Get mathematics_dataset package location
+          SITE_PACKAGES=$(python -c "import site; print(site.getsitepackages()[0])")
+          # Apply patch to mathematics_dataset
+          cd $SITE_PACKAGES && \
+          patch -p1 < $GITHUB_WORKSPACE/patches/mathematics_dataset_sympy_compat.patch || exit 1
+          cd $GITHUB_WORKSPACE
 
       - name: Run tests
         run: |

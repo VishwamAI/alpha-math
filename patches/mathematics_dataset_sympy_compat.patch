@@ -1,0 +1,11 @@
+--- a/mathematics_dataset/sample/polynomials.py
++++ b/mathematics_dataset/sample/polynomials.py
+@@ -30,7 +30,7 @@ import numpy as np
+ import six
+ from six.moves import range
+ import sympy
+-from sympy.solvers.diophantine import base_solution_linear as diophantine_solve_linear_2d
++from alphamath.compat.diophantine import base_solution_linear as diophantine_solve_linear_2d
+
+ from mathematics_dataset import example
+ from mathematics_dataset.sample import number
