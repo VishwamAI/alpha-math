@@ -41,3 +41,5 @@ triton
 typing_extensions
 tensorflow
 mathematics_dataset
+sympy==1.12
+mathematics_dataset
