@@ -34,12 +34,10 @@ pytest
 python-dateutil
 scipy
 six
-sympy==1.10.1
+sympy==1.6.2
 tomli
 torch
 triton
 typing_extensions
 tensorflow
-mathematics_dataset
-sympy==1.12
 mathematics_dataset
