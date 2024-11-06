@@ -9,33 +9,56 @@ def solve_linear_equation(equation, variable='x'):
 
 def solve_quadratic_equation(equation, variable='x'):
     """Solve a quadratic equation."""
-    # Convert equation to standard form
-    equation = equation.replace('^', '**')
     x = sympy.Symbol(variable)
-    try:
-        expr = sympy.sympify(equation)
-    except:
-        # Parse the equation term by term
-        terms = equation.split(' ')
-        coeffs = [0, 0, 0]  # [x^2, x, constant]
 
-        for i, term in enumerate(terms):
-            if '**2' in term or '^2' in term:
-                # Quadratic term
-                coeff = term.split('x')[0]
-                coeffs[0] = 1 if coeff == '' else int(coeff)
-            elif 'x' in term and '**2' not in term and '^2' not in term:
-                # Linear term
-                coeff = term.split('x')[0]
-                coeffs[1] = 1 if coeff == '' else int(coeff)
-            elif term.strip('-').isdigit():
-                # Constant term
-                coeffs[2] = int(term)
-            elif term in ['+', '-']:
+    # First try direct sympy parsing
+    try:
+        expr = sympy.sympify(equation.replace('^', '**'))
+        solutions = sympy.solve(expr, x)
+        return [str(int(sol)) if float(sol).is_integer() else str(sol) for sol in solutions]
+    except:
+        # If that fails, parse manually
+        coeffs = [0, 0, 0]  # [x^2, x, constant]
+        current_term = ''
+        sign = 1
+
+        # Add a + at the beginning if there isn't a sign
+        if not equation.startswith(('+', '-')):
+            equation = '+' + equation
+
+        # Add spaces around operators if they're not there
+        equation = equation.replace('+', ' + ').replace('-', ' - ')
+        terms = equation.split()
+
+        i = 0
+        while i < len(terms):
+            term = terms[i]
+
+            # Handle signs
+            if term in ['+', '-']:
+                sign = 1 if term == '+' else -1
+                i += 1
                 continue
 
-        expr = coeffs[0] * x**2 + coeffs[1] * x + coeffs[2]
+            # Remove ^ and replace with **
+            term = term.replace('^', '**')
 
-    solutions = sympy.solve(expr, x)
-    # Convert solutions to integers if they're whole numbers
-    return [str(int(sol)) if float(sol).is_integer() else str(sol) for sol in solutions]
+            if '**2' in term:
+                # Quadratic term
+                coeff = term.split('x')[0]
+                coeffs[0] = sign * (1 if coeff == '' else int(coeff))
+            elif 'x' in term:
+                # Linear term
+                coeff = term.split('x')[0]
+                coeffs[1] = sign * (1 if coeff == '' else int(coeff))
+            else:
+                # Constant term
+                coeffs[2] = sign * int(term)
+            i += 1
+
+        # Create the expression
+        expr = coeffs[0] * x**2 + coeffs[1] * x + coeffs[2]
+        solutions = sympy.solve(expr, x)
+
+        # Convert solutions to integers if they're whole numbers
+        return [str(int(sol)) if float(sol).is_integer() else str(sol) for sol in solutions]
