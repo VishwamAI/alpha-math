@@ -1,5 +1,9 @@
 import sympy
 
+def is_prime(n):
+    """Check if a number is prime."""
+    return sympy.isprime(n)
+
 def prime_factorization(n):
     """Return the prime factorization of a number."""
     factors = sympy.factorint(n)
