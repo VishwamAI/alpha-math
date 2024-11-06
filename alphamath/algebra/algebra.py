@@ -4,10 +4,13 @@ def solve_linear_equation(equation, variable='x'):
     """Solve a linear equation."""
     left, right = equation.split('=')
     expr = f"({left})-({right})"
-    return str(sympy.solve(expr, variable)[0])
+    result = sympy.solve(expr, variable)[0]
+    return int(result) if float(result).is_integer() else str(result)
 
 def solve_quadratic_equation(equation, variable='x'):
     """Solve a quadratic equation."""
-    # Replace ^ with ** for Python syntax
+    # Convert equation to standard form
     equation = equation.replace('^', '**')
-    return [str(sol) for sol in sympy.solve(equation, variable)]
+    x = sympy.Symbol(variable)
+    expr = sympy.sympify(equation)
+    return [str(sol) for sol in sympy.solve(expr, x)]
