@@ -15,7 +15,14 @@ def solve_quadratic_equation(equation, variable='x'):
     try:
         expr = sympy.sympify(equation.replace('^', '**'))
         solutions = sympy.solve(expr, x)
-        return [str(int(sol)) if float(sol).is_integer() else str(sol) for sol in solutions]
+        # Convert solutions to integers if they're whole numbers
+        result_set = set()
+        for sol in solutions:
+            if float(sol).is_integer():
+                result_set.add(int(float(sol)))
+            else:
+                result_set.add(str(sol))
+        return list(result_set)
     except:
         # If that fails, parse manually
         coeffs = [0, 0, 0]  # [x^2, x, constant]
@@ -61,4 +68,10 @@ def solve_quadratic_equation(equation, variable='x'):
         solutions = sympy.solve(expr, x)
 
         # Convert solutions to integers if they're whole numbers
-        return [str(int(sol)) if float(sol).is_integer() else str(sol) for sol in solutions]
+        result_set = set()
+        for sol in solutions:
+            if float(sol).is_integer():
+                result_set.add(int(float(sol)))
+            else:
+                result_set.add(str(sol))
+        return list(result_set)
