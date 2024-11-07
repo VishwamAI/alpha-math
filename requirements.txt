@@ -30,14 +30,11 @@ Pillow
 pluggy
 pyglet
 pyparsing
-pytest
 python-dateutil
 scipy
 six
-sympy==1.10.1
 tomli
 torch
 triton
 typing_extensions
 tensorflow
-mathematics_dataset

@@ -16,9 +16,17 @@ setup(
         "torch>=2.4.0",
         "gym>=0.18.3",
         "matplotlib>=3.4.2",
-        "mathematics-dataset>=1.0.1",
-        "sympy>=1.9",
+        "mathematics-dataset==1.0.1",  # Pin to exact version for compatibility
+        "sympy==1.6.2",  # Pin to exact version that has base_solution_linear
+        "six>=1.16.0",  # Required by mathematics-dataset
+        "absl-py>=0.1.0",  # Required by mathematics-dataset
     ],
+    extras_require={
+        'dev': [
+            'pytest>=7.0.0',
+            'pytest-cov>=4.0.0',
+        ],
+    },
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
